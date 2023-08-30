@@ -1,16 +1,16 @@
 package jp.game.rpg.hijiri;
 
-public class Garen extends Ally {
+public class Draven extends Ally {
 
-	String name = "ガレン";
-	int hp = 690;
-	int atk = 69;
+	String name = "ドレイヴン";
+	int hp = 675;
+	int atk = 62;
 
 	//コンストラクタ
-	public Garen() {
+	public Draven() {
 	}
 	
-	public Garen(String name, int hp, int atk) {
+	public Draven(String name, int hp, int atk) {
 		super(name, hp, atk);
 	}
 
@@ -18,7 +18,7 @@ public class Garen extends Ally {
 
 	//選択時
 	public void selected() throws Exception {
-		System.out.println("「我が剣と忠誠は、デマーシアの為に！」");
+		System.out.println("「リーグオブドレイヴンへようこそ！」");
 		System.out.println("");
 		java.lang.Thread.sleep(1000);
 	}
@@ -26,7 +26,7 @@ public class Garen extends Ally {
 	//攻撃時
 	public void attack() throws Exception {
 		System.out.println(this.name + "の攻撃！");
-		System.out.println("「デマーシアアアア！！」");
+		System.out.println("「よく見ておけよ」");
 		System.out.println("");
 		java.lang.Thread.sleep(1000);
 	}
@@ -43,16 +43,16 @@ public class Garen extends Ally {
 	//登場時
 	public void appear() throws Exception {
 		System.out.println("「俺は" + this.name + "」");
-		System.out.println("「今日も地球を持ち上げているぞ！」");
+		System.out.println("「ここでは俺様が主役よ」");
 		java.lang.Thread.sleep(1000);
-		System.out.println("「ム！メイジかッ！？」");
+		System.out.println("「殺られたいのはどいつだ？」");
 		System.out.println("");
 		java.lang.Thread.sleep(1000);
 	}
 
 	//ダメージ時
 	public void damage(int dmg) throws Exception {
-		System.out.println("「デマッ！？」");
+		System.out.println("「嫉妬するなよ」");
 		System.out.println("");
 		this.hp = this.hp - dmg;
 		java.lang.Thread.sleep(1000);
@@ -62,7 +62,7 @@ public class Garen extends Ally {
 	public void win() throws Exception {
 		System.out.println(this.name + "は勝利した。");
 		java.lang.Thread.sleep(1000);
-		System.out.println("「デマアアアアアアシアアアアアア！！！」");
+		System.out.println("「やはり俺様は最高だな」");
 		System.out.println("");
 		java.lang.Thread.sleep(1000);
 
@@ -77,7 +77,7 @@ public class Garen extends Ally {
 	//敗北時
 	public void dead() throws Exception {
 		System.out.println(this.name + "は力尽きた。");
-		System.out.println("「デマ……シア……。」");
+		System.out.println("「この俺様が……」");
 		System.out.println("");
 		java.lang.Thread.sleep(1000);
 

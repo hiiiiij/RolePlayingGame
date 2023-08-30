@@ -1,38 +1,44 @@
 package jp.game.rpg.hijiri;
 
-public class Matango {
-	
-	String name;
-	int hp;
-	int atk;
-	
+public class Matango extends Enemy {
+
+	String name = "キノコ";
+	int hp = 100;
+	int atk = 300;
+
 	//コンストラクタ
-	public Matango(String name, int hp, int atk) {
-		this.name = name;
-		this.hp = hp;
-		this.atk = atk;
+	public Matango() {
 	}
 	
-	//メソッド
+	public Matango(String name, int hp, int atk) {
+		super(name, hp, atk);
+	}
 	
+	public Matango(char suffix) {
+		super(suffix);
+	}
+
+	//メソッド
+
 	//攻撃時
 	public void attack() throws Exception {
 		System.out.println(this.name + "の攻撃！");
 		System.out.println("");
 		java.lang.Thread.sleep(1000);
 	}
-	
+
 	//登場時
-	public void apper() throws Exception {
-		System.out.println("キノコが現れた！");
+	public void appear() throws Exception {
+		System.out.println(this.name + "は胞子をまき散らしている！");
 		System.out.println("");
 		java.lang.Thread.sleep(1000);
 	}
-	
+
 	//ダメージ時
-		public void damage() throws Exception{
-			System.out.println("「ギャッ！？」");
-			System.out.println("");
-			java.lang.Thread.sleep(1000);
-		}
+	public void damage(int dmg) throws Exception {
+		System.out.println("「ギャッ！？」");
+		System.out.println("");
+		this.hp = (this.hp - dmg);
+		java.lang.Thread.sleep(1000);
+	}
 }
