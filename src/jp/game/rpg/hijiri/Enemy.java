@@ -1,29 +1,24 @@
 package jp.game.rpg.hijiri;
 
 public class Enemy {
-	
+
 	String name;
 	int hp;
 	int atk;
+	char suffix;
+	boolean alive;
 	
 	//コンストラクタ
 	public Enemy() {
 	}
 	
-	public Enemy(String name, int hp, int atk) {
-		this.name = name;
-		this.hp = hp;
-		this.atk = atk;
-	}
-	
 	public Enemy(char suffix) {
-		this.name = name + suffix;
 	}
 	
 	//メソッド
 	
 	//攻撃時
-	public void attack() throws Exception {
+	public void attack(Ally target) throws Exception {
 	}
 	
 	//登場時
@@ -31,7 +26,7 @@ public class Enemy {
 	}
 	
 	//ダメージ時
-	public void damage(int dmg) throws Exception{
+	public void damage() throws Exception{
 	}
 
 }

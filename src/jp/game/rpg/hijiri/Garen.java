@@ -2,16 +2,12 @@ package jp.game.rpg.hijiri;
 
 public class Garen extends Ally {
 
-	String name = "ガレン";
-	int hp = 690;
-	int atk = 69;
-
 	//コンストラクタ
 	public Garen() {
-	}
-	
-	public Garen(String name, int hp, int atk) {
-		super(name, hp, atk);
+		this.name = "ガレン";
+		this.hp = 690;
+		this.atk = 100;
+		alive = true;
 	}
 
 	//メソッド
@@ -24,11 +20,17 @@ public class Garen extends Ally {
 	}
 
 	//攻撃時
-	public void attack() throws Exception {
+	public void attack(Enemy target) throws Exception {
 		System.out.println(this.name + "の攻撃！");
 		System.out.println("「デマーシアアアア！！」");
 		System.out.println("");
 		java.lang.Thread.sleep(1000);
+		target.hp = (target.hp - this.atk);
+		if (target.hp <= 0) {
+			target.hp = 0;
+			target.alive = false;
+		}
+		System.out.println(target.name + "に" + this.atk + "のダメージ！");
 	}
 
 	//逃走時
@@ -51,10 +53,9 @@ public class Garen extends Ally {
 	}
 
 	//ダメージ時
-	public void damage(int dmg) throws Exception {
+	public void damage() throws Exception {
 		System.out.println("「デマッ！？」");
 		System.out.println("");
-		this.hp = this.hp - dmg;
 		java.lang.Thread.sleep(1000);
 	}
 

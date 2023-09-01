@@ -2,18 +2,14 @@ package jp.game.rpg.hijiri;
 
 public class Braum extends Ally {
 
-	String name = "ブラウム";
-	int hp = 610;
-	int atk = 55;
-
 	//コンストラクタ
 	public Braum() {
+		this.name = "ブラウム";
+		this.hp = 610;
+		this.atk = 55;
+		alive = true;
 	}
 	
-	public Braum(String name, int hp, int atk) {
-		super(name, hp, atk);
-	}
-
 	//メソッド
 
 	//選択時
@@ -24,10 +20,17 @@ public class Braum extends Ally {
 	}
 
 	//攻撃時
-	public void attack() throws Exception {
+	public void attack(Enemy target) throws Exception {
 		System.out.println(this.name + "の攻撃！");
 		System.out.println("「もう説教だけでは済まんぞ！」");
 		System.out.println("");
+		java.lang.Thread.sleep(1000);
+		target.hp = (target.hp - this.atk);
+		if (target.hp <= 0) {
+			target.hp = 0;
+			target.alive = false;
+		}
+		System.out.println(target.name + "に" + this.atk + "のダメージ！");
 		java.lang.Thread.sleep(1000);
 	}
 
@@ -51,10 +54,9 @@ public class Braum extends Ally {
 	}
 
 	//ダメージ時
-	public void damage(int dmg) throws Exception {
+	public void damage() throws Exception {
 		System.out.println("「負けるな！……これ、母ちゃんの口癖な」");
 		System.out.println("");
-		this.hp = this.hp - dmg;
 		java.lang.Thread.sleep(1000);
 	}
 

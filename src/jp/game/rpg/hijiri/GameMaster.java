@@ -1,16 +1,18 @@
 package jp.game.rpg.hijiri;
 
+import java.util.Random;
+
 public class GameMaster {
+
 	public static void main(String args[]) throws Exception {
 
 		//自キャラ配列
-		Garen garen = new Garen("ガレン", 690, 69);
-		Braum braum = new Braum("ブラウム", 610, 55);
-		Draven draven = new Draven("ドレイヴン", 675, 62);
-
-		//自キャラ変数
 		int characterSelect;
-		Ally allyCharacter = null;
+		Ally allyCharacter[] = new Ally[] {
+				new Garen(),
+				new Braum(),
+				new Draven()
+		};
 
 		//コマンド入力変数
 		java.util.Scanner scanner = new java.util.Scanner(System.in);
@@ -19,9 +21,9 @@ public class GameMaster {
 		do {
 
 			System.out.println("キャラクターを数字で選択してください。");
-			System.out.println("0:" + garen.name);
-			System.out.println("1:" + braum.name);
-			System.out.println("2:" + draven.name);
+			System.out.println("0:" + allyCharacter[0].name);
+			System.out.println("1:" + allyCharacter[1].name);
+			System.out.println("2:" + allyCharacter[2].name);
 
 			characterSelect = scanner.nextInt();
 
@@ -32,89 +34,160 @@ public class GameMaster {
 		} while (characterSelect > 2 || 0 > characterSelect);
 
 		//入力値によってキャラ選択
-		if (characterSelect == 0) {
-			allyCharacter = garen;
-		}
-		if (characterSelect == 1) {
-			allyCharacter = braum;
-		}
-		if (characterSelect == 2) {
-			allyCharacter = draven;
-		}
+		int c = characterSelect;
 
 		//自キャラ選択ボイス
-		allyCharacter.selected();
+		allyCharacter[c].selected();
 
 		//登場
-		allyCharacter.appear();
+		allyCharacter[c].appear();
 
-		//敵決定
-		Matango matango = new Matango();
-		Matango enemyCharacter = matango;
+		//ランダム変数
+		Random rand = new Random();
 
-		enemyCharacter.appear();
+		//敵リストと番号
+
+		char[] ch = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' };
+
+		//敵の数
+		int enemy_number = rand.nextInt(3) + 1;
+
+		//敵の数固定するテスト
+		enemy_number = 3;
+		Enemy enemyCharacter[] = new Enemy[enemy_number];
+
+		//敵生成（マタンゴ）
+		//敵リスト
+		for (int i = 0; i < enemy_number; i++) {
+			enemyCharacter[i] = new Matango(ch[i]);
+			enemyCharacter[i].appear();
+		}
+
+		//勝敗判定
+		boolean win = false;
+		boolean loss = false;
 
 		//お互いのHPが残っている間ループ
 		do {
+
 			//コマンド選択
-			System.out.println("どうする？");
+			System.out.println("");
 			System.out.println("行動を数字で選択してください。");
 			System.out.println("0:通常攻撃 1:逃げる 2:体力確認");
 			int input = scanner.nextInt();
+			System.out.println("");
 
 			//コマンドによって行動を変化させる
+			switch (input) {
 
 			//0:通常攻撃
-			if (input == 0) {
+			case 0:
+
+				//対象を選択する
+
+				int t; //選択された敵
+
+				do {
+					int count = 0; //添え字
+
+					//敵を表示する
+					System.out.println("対象を数字で選択してください。");
+					for (Enemy e : enemyCharacter) {
+						if (e.alive == true) {
+							System.out.println(count + ":" + e.name);
+							System.out.println("");
+						}
+						if (e.alive == false) {
+							System.out.println(count + ":" + e.name + "(死亡)");
+							System.out.println("");
+						}
+						count++;
+					}
+
+					int target_number = scanner.nextInt();
+					t = target_number;
+					if (enemyCharacter[t].alive == false) {
+						System.out.println("有効な数字を選択してください。");
+					}
+				} while (enemyCharacter[t].alive == false);
 
 				//自分の攻撃
-				allyCharacter.attack();
-				System.out.println(enemyCharacter.name + "に" + allyCharacter.atk + "のダメージ！");
-				java.lang.Thread.sleep(1000);
-				enemyCharacter.damage(allyCharacter.atk);
+				allyCharacter[c].attack(enemyCharacter[t]);
+				enemyCharacter[t].damage();
 
-				//敵の行動(生きている場合)
-				if (enemyCharacter.hp > 0) {
-					enemyCharacter.attack();
-					System.out.println(allyCharacter.name + "に" + enemyCharacter.atk + "のダメージ！");
-					java.lang.Thread.sleep(1000);
-					allyCharacter.damage(enemyCharacter.atk);
+				//倒したとき
+				if (enemyCharacter[t].alive == false) {
+					System.out.println(enemyCharacter[t].name + "は倒れた！");
+					System.out.println("");
 				}
 
-				//1:逃げる
-			}
-			if (input == 1) {
+				//敵の攻撃
+				for (Enemy e : enemyCharacter) {
+					if (e.alive == true && allyCharacter[c].alive == true) {
+						e.attack(allyCharacter[c]);
+					}
+				}
+
+				break;
+
+			//1:逃げる
+			case 1:
 
 				//自分の逃走
-				allyCharacter.run();
+				allyCharacter[c].run();
 
-				//敵の行動(生きている場合)
-				if (enemyCharacter.hp > 0) {
-					enemyCharacter.attack();
-					System.out.println(allyCharacter.name + "に" + enemyCharacter.atk + "のダメージ！");
-					java.lang.Thread.sleep(1000);
-					allyCharacter.damage(enemyCharacter.atk);
+				//敵の行動
+				for (Enemy e : enemyCharacter) {
+					if (e.alive == true && allyCharacter[c].alive == true) {
+						e.attack(allyCharacter[c]);
+					}
 				}
 
-				//2:体力確認	
-			}
-			if (input == 2) {
+				break;
+
+			//2:体力確認
+			case 2:
 
 				//お互いの体力を表示する
-				System.out.println(allyCharacter.name + "の体力：" + allyCharacter.hp);
-				System.out.println(enemyCharacter.name + "の体力：" + enemyCharacter.hp);
+				System.out.println(allyCharacter[c].name + "の体力：" + allyCharacter[c].hp);
 				System.out.println("");
+
+				for (Enemy e : enemyCharacter) {
+					System.out.println(e.name + "の体力:" + +e.hp);
+					System.out.println("");
+				}
+
+				break;
+
+			//有効でないコマンド
+			default:
+				System.out.println("有効な数字を選択してください。");
+				break;
+
 			}
 
-		} while (allyCharacter.hp > 0 && enemyCharacter.hp > 0);
+			//勝利判定
+			win = true;
+			for (Enemy e : enemyCharacter) {
+				if (e.alive == true) {
+					win = false;
+				}
+			}
 
-		//どちらの体力が0以下かで分岐
-		if (allyCharacter.hp <= 0) {
-			allyCharacter.dead();
+			//敗北判定
+			if (allyCharacter[c].alive == false) {
+				loss = true;
+			}
+
+		} while (win == false && loss == false);
+
+		//勝敗演出
+		if (win == true) {
+			allyCharacter[c].win();
 		}
-		if (enemyCharacter.hp <= 0) {
-			allyCharacter.win();
+		if (loss == true) {
+			allyCharacter[c].dead();
 		}
+
 	}
-
 }

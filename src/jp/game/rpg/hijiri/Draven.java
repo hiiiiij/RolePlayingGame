@@ -2,16 +2,12 @@ package jp.game.rpg.hijiri;
 
 public class Draven extends Ally {
 
-	String name = "ドレイヴン";
-	int hp = 675;
-	int atk = 62;
-
 	//コンストラクタ
 	public Draven() {
-	}
-	
-	public Draven(String name, int hp, int atk) {
-		super(name, hp, atk);
+		this.name = "ドレイヴン";
+		this.hp = 675;
+		this.atk = 62;
+		alive = true;
 	}
 
 	//メソッド
@@ -24,10 +20,17 @@ public class Draven extends Ally {
 	}
 
 	//攻撃時
-	public void attack() throws Exception {
+	public void attack(Enemy target) throws Exception {
 		System.out.println(this.name + "の攻撃！");
 		System.out.println("「よく見ておけよ」");
 		System.out.println("");
+		java.lang.Thread.sleep(1000);
+		target.hp = (target.hp - this.atk);
+		if (target.hp <= 0) {
+			target.hp = 0;
+			target.alive = false;
+		}
+		System.out.println(target.name + "に" + this.atk + "のダメージ！");
 		java.lang.Thread.sleep(1000);
 	}
 
@@ -51,10 +54,9 @@ public class Draven extends Ally {
 	}
 
 	//ダメージ時
-	public void damage(int dmg) throws Exception {
+	public void damage() throws Exception {
 		System.out.println("「嫉妬するなよ」");
 		System.out.println("");
-		this.hp = this.hp - dmg;
 		java.lang.Thread.sleep(1000);
 	}
 

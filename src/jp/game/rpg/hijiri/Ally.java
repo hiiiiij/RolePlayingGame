@@ -5,15 +5,10 @@ public abstract class Ally {
 	String name;
 	int hp;
 	int atk;
+	boolean alive;
 
 	//コンストラクタ
 	public Ally() {
-	}
-	
-	public Ally(String name, int hp, int atk) {
-		this.name = name;
-		this.hp = hp;
-		this.atk = atk;
 	}
 
 	//メソッド
@@ -23,7 +18,7 @@ public abstract class Ally {
 	}
 
 	//攻撃時
-	public void attack() throws Exception {
+	public void attack(Enemy target) throws Exception {
 	}
 
 	//逃走時
@@ -36,7 +31,7 @@ public abstract class Ally {
 	}
 
 	//ダメージ時
-	public void damage(int dmg) throws Exception {
+	public void damage() throws Exception {
 
 	}
 
