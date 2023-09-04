@@ -1,5 +1,6 @@
 package jp.game.rpg.hijiri;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class GameMaster {
@@ -11,7 +12,7 @@ public class GameMaster {
 	public static void main(String args[]) throws Exception {
 
 		//キャラクター配列
-		Ally allyCharacter[] = new Ally[] {
+		Ally allyCharacters[] = new Ally[] {
 				new Garen(),
 				new Braum(),
 				new Draven()
@@ -19,14 +20,12 @@ public class GameMaster {
 
 		//キャラクター表示
 		System.out.println("キャラクターを選択してください。");
-		int characterNo = 0;
-		for (Ally a : allyCharacter) {
-			characterNo++;
-			System.out.println(characterNo + ":" + a.name);
+		for (Ally a : allyCharacters) {
+			System.out.println(Arrays.asList(allyCharacters).indexOf(a) + 1 + ":" + a.name);
 		}
 
 		//キャラクター選択
-		int c = command(1, characterNo);
+		int c = command(1, allyCharacters.length);
 
 		//アイテム配列
 		Item itemList[] = new Item[] {
@@ -36,10 +35,10 @@ public class GameMaster {
 				new Omg()
 		};
 
-		equip(allyCharacter[c], itemList);
+		equip(allyCharacters[c], itemList);
 
 		//登場
-		allyCharacter[c].appear();
+		allyCharacters[c].appear();
 
 		//敵の数の決定(1~3)
 		int numberOfEnemy = rand.nextInt(3) + 1;
@@ -47,13 +46,13 @@ public class GameMaster {
 		//同名の敵の番号 8体まで
 		char[] ch = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' };
 
-		Enemy enemyCharacter[] = new Enemy[numberOfEnemy];
+		Enemy enemyCharacters[] = new Enemy[numberOfEnemy];
 
 		//敵を生成（マタンゴ）
 		//敵リスト
 		for (int i = 0; i < numberOfEnemy; i++) {
-			enemyCharacter[i] = new Matango(ch[i]);
-			enemyCharacter[i].appear();
+			enemyCharacters[i] = new Matango(ch[i]);
+			enemyCharacters[i].appear();
 		}
 		System.out.println("");
 
@@ -69,38 +68,38 @@ public class GameMaster {
 			//0:通常攻撃
 			case 0:
 				//自分の攻撃
-				attackFromAlly(allyCharacter[c], enemyCharacter);
+				attackFromAlly(allyCharacters[c], enemyCharacters);
 				//敵の攻撃
-				attackFromEnemy(enemyCharacter, allyCharacter[c]);
+				attackFromEnemy(enemyCharacters, allyCharacters[c]);
 				break;
 
 			//1:逃げる
 			case 1:
 				//自分の逃走
-				allyCharacter[c].run();
+				allyCharacters[c].run();
 				//敵の攻撃
-				attackFromEnemy(enemyCharacter, allyCharacter[c]);
+				attackFromEnemy(enemyCharacters, allyCharacters[c]);
 				break;
 
 			//2:体力確認
 			case 2:
 				//お互いの体力を表示する
-				System.out.println(allyCharacter[c].name + "の体力：" + allyCharacter[c].hp);
+				System.out.println(allyCharacters[c].name + "の体力：" + allyCharacters[c].hp);
 				System.out.println("");
-				for (Enemy e : enemyCharacter) {
+				for (Enemy e : enemyCharacters) {
 					System.out.println(e.name + "の体力:" + +e.hp);
 					System.out.println("");
 				}
 				break;
 			}
 
-		} while (isWin(enemyCharacter) == false && isLose(allyCharacter[c]) == false);
+		} while (isWin(enemyCharacters) == false && isLose(allyCharacters[c]) == false);
 
-		if (isLose(allyCharacter[c]) == true) {
-			allyCharacter[c].dead();
+		if (isLose(allyCharacters[c])) {
+			allyCharacters[c].dead();
 		}
-		if (isWin(enemyCharacter) == true) {
-			allyCharacter[c].win();
+		if (isWin(enemyCharacters)) {
+			allyCharacters[c].win();
 		}
 
 	}
@@ -123,21 +122,19 @@ public class GameMaster {
 	public static void attackFromAlly(Ally agent, Enemy target[]) throws Exception {
 		//敵を表示する
 		System.out.println("攻撃の対象を選択してください。");
-		int enemyNo = 0;
 		for (Enemy e : target) {
-			enemyNo++;
 			if (e.hp > 0) {
-				System.out.println(enemyNo + ":" + e.name);
+				System.out.println(Arrays.asList(target).indexOf(e) + 1 + ":" + e.name);
 			}
 			if (e.hp == 0) {
-				System.out.println(enemyNo + ":" + e.name + "(死亡)");
+				System.out.println(Arrays.asList(target).indexOf(e) + 1 + ":" + e.name + "(死亡)");
 			}
 		}
 
 		//対象を選択する
 		int t;
 		do {
-			t = command(1, enemyNo);
+			t = command(1, target.length);
 			if (target[t].hp == 0) {
 				System.out.println("有効な数字を選択してください。");
 			}
@@ -200,10 +197,8 @@ public class GameMaster {
 	public static void equip(Ally ally, Item itemList[]) throws Exception {
 		//アイテム表示
 		System.out.println("装備するアイテムを選択してください。");
-		int itemNo = 0;
 		for (Item i : itemList) {
-			itemNo++;
-			System.out.print(itemNo + ":" + i.name);
+			System.out.print(Arrays.asList(itemList).indexOf(i) + 1 + ":" + i.name);
 			if (i.hp > 0) {
 				System.out.print(" 体力+" + i.hp);
 			}
@@ -217,7 +212,7 @@ public class GameMaster {
 		}
 
 		//アイテム装備
-		ally.equip(itemList[command(1, itemNo)]);
+		ally.equip(itemList[command(1, itemList.length)]);
 
 	}
 

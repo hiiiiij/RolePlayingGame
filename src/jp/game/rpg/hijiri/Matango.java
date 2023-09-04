@@ -13,7 +13,8 @@ public class Matango extends Enemy {
 
 	public Matango(char suffix) {
 		this.name = "マタンゴ" + suffix;
-		this.hp = 100;
+		this.MAX_HP = 100;
+		this.hp = MAX_HP;
 		this.atk = 80;
 		this.armor = 10;
 	}

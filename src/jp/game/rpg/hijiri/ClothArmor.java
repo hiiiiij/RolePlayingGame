@@ -5,7 +5,7 @@ public class ClothArmor extends Item {
 	//コンストラクタ
 	public ClothArmor() {
 		this.name = "クロスアーマー";
-		this.atk = 15;
+		this.armor = 15;
 	}
 
 }

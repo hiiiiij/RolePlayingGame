@@ -32,11 +32,11 @@ public abstract class Enemy {
 		if (dmg <= 0) {
 			dmg = 0;
 		}
-		System.out.println(this.name + "に" + (dmg) + "のダメージ！");
+		System.out.println(this.name + "に" + dmg + "のダメージ！");
 		System.out.println("");
 		java.lang.Thread.sleep(200);
 		//ダメージ計算
-		this.hp -= (dmg);
+		this.hp -= dmg;
 		if (this.hp <= 0) {
 			this.hp = 0;
 		}
