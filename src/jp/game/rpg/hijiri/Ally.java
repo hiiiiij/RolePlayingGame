@@ -46,7 +46,8 @@ public abstract class Ally {
 
 	public void equip(Item item) throws Exception {
 		System.out.println(this.name + "は" + item.name + "を装備した。");
-
+		this.equipment = item;
+		
 		if (item.hp > 0) {
 			this.MAX_HP += item.hp;
 			this.hp += item.hp;
