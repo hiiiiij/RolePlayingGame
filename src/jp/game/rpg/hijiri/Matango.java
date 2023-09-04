@@ -5,16 +5,17 @@ public class Matango extends Enemy {
 	//コンストラクタ
 	public Matango() {
 		this.name = "マタンゴ";
-		this.hp = 100;
+		this.MAX_HP = 100;
+		this.hp = MAX_HP;
 		this.atk = 80;
-		alive = true;
+		this.armor = 10;
 	}
 
 	public Matango(char suffix) {
 		this.name = "マタンゴ" + suffix;
 		this.hp = 100;
 		this.atk = 80;
-		alive = true;
+		this.armor = 10;
 	}
 
 	//メソッド
@@ -22,27 +23,15 @@ public class Matango extends Enemy {
 	//攻撃時
 	public void attack(Ally target) throws Exception {
 		System.out.println(this.name + "の攻撃！");
-		System.out.println("");
-		java.lang.Thread.sleep(1000);
-		target.hp = (target.hp - this.atk);
-		if (target.hp <= 0) {
-			target.hp = 0;
-			target.alive = false;
-		}
-		System.out.println(target.name + "に" + this.atk + "のダメージ！");
-		System.out.println("");
+		java.lang.Thread.sleep(200);
 	}
 
 	//登場時
 	public void appear() throws Exception {
 		System.out.println(this.name + "が現れた！");
-		java.lang.Thread.sleep(1000);
+		java.lang.Thread.sleep(200);
 	}
 
 	//ダメージ時
-	public void damage() throws Exception {
-		System.out.println("「ギャッ！？」");
-		System.out.println("");
-		java.lang.Thread.sleep(1000);
-	}
+	//Enemyクラスを継承
 }

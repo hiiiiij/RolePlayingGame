@@ -5,68 +5,49 @@ public class Draven extends Ally {
 	//コンストラクタ
 	public Draven() {
 		this.name = "ドレイヴン";
-		this.hp = 675;
+		this.MAX_HP = 675;
+		this.hp = MAX_HP;
 		this.atk = 62;
-		alive = true;
+		this.armor = 29;
 	}
 
 	//メソッド
-
-	//選択時
-	public void selected() throws Exception {
-		System.out.println("「リーグオブドレイヴンへようこそ！」");
-		System.out.println("");
-		java.lang.Thread.sleep(1000);
-	}
-
 	//攻撃時
 	public void attack(Enemy target) throws Exception {
 		System.out.println(this.name + "の攻撃！");
 		System.out.println("「よく見ておけよ」");
 		System.out.println("");
-		java.lang.Thread.sleep(1000);
-		target.hp = (target.hp - this.atk);
-		if (target.hp <= 0) {
-			target.hp = 0;
-			target.alive = false;
-		}
-		System.out.println(target.name + "に" + this.atk + "のダメージ！");
-		java.lang.Thread.sleep(1000);
+		java.lang.Thread.sleep(200);
 	}
 
 	//逃走時
 	public void run() throws Exception {
 		System.out.println(this.name + "は無様に逃げ出した！");
-		java.lang.Thread.sleep(1000);
+		java.lang.Thread.sleep(200);
 		System.out.println("しかし逃げられなかった！");
 		System.out.println("");
-		java.lang.Thread.sleep(1000);
+		java.lang.Thread.sleep(200);
 	}
 
 	//登場時
 	public void appear() throws Exception {
-		System.out.println("「俺は" + this.name + "」");
 		System.out.println("「ここでは俺様が主役よ」");
-		java.lang.Thread.sleep(1000);
-		System.out.println("「殺られたいのはどいつだ？」");
+		java.lang.Thread.sleep(200);
+		System.out.println("「リーグオブドレイヴンへようこそ！」");
 		System.out.println("");
-		java.lang.Thread.sleep(1000);
+		java.lang.Thread.sleep(200);
 	}
 
 	//ダメージ時
-	public void damage() throws Exception {
-		System.out.println("「嫉妬するなよ」");
-		System.out.println("");
-		java.lang.Thread.sleep(1000);
-	}
+	//Allyクラスを継承
 
 	//勝利時
 	public void win() throws Exception {
 		System.out.println(this.name + "は勝利した。");
-		java.lang.Thread.sleep(1000);
+		java.lang.Thread.sleep(200);
 		System.out.println("「やはり俺様は最高だな」");
 		System.out.println("");
-		java.lang.Thread.sleep(1000);
+		java.lang.Thread.sleep(200);
 
 		char[] victory = { 'V', 'I', 'C', 'T', 'O', 'R', 'Y' };
 
@@ -81,7 +62,7 @@ public class Draven extends Ally {
 		System.out.println(this.name + "は力尽きた。");
 		System.out.println("「この俺様が……」");
 		System.out.println("");
-		java.lang.Thread.sleep(1000);
+		java.lang.Thread.sleep(200);
 
 		char[] defeat = { 'D', 'E', 'F', 'E', 'A', 'T' };
 

@@ -5,67 +5,49 @@ public class Garen extends Ally {
 	//コンストラクタ
 	public Garen() {
 		this.name = "ガレン";
-		this.hp = 690;
-		this.atk = 100;
-		alive = true;
+		this.MAX_HP = 690;
+		this.hp = MAX_HP;
+		this.atk = 69;
+		this.armor = 38;
 	}
 
 	//メソッド
-
-	//選択時
-	public void selected() throws Exception {
-		System.out.println("「我が剣と忠誠は、デマーシアの為に！」");
-		System.out.println("");
-		java.lang.Thread.sleep(1000);
-	}
 
 	//攻撃時
 	public void attack(Enemy target) throws Exception {
 		System.out.println(this.name + "の攻撃！");
 		System.out.println("「デマーシアアアア！！」");
-		System.out.println("");
-		java.lang.Thread.sleep(1000);
-		target.hp = (target.hp - this.atk);
-		if (target.hp <= 0) {
-			target.hp = 0;
-			target.alive = false;
-		}
-		System.out.println(target.name + "に" + this.atk + "のダメージ！");
+		java.lang.Thread.sleep(200);
 	}
 
 	//逃走時
 	public void run() throws Exception {
 		System.out.println(this.name + "は無様に逃げ出した！");
-		java.lang.Thread.sleep(1000);
+		java.lang.Thread.sleep(200);
 		System.out.println("しかし逃げられなかった！");
 		System.out.println("");
-		java.lang.Thread.sleep(1000);
+		java.lang.Thread.sleep(200);
 	}
 
 	//登場時
 	public void appear() throws Exception {
-		System.out.println("「俺は" + this.name + "」");
-		System.out.println("「今日も地球を持ち上げているぞ！」");
-		java.lang.Thread.sleep(1000);
+		System.out.println("「我が剣と忠誠は、デマーシアの為に！」");
+		java.lang.Thread.sleep(200);
 		System.out.println("「ム！メイジかッ！？」");
 		System.out.println("");
-		java.lang.Thread.sleep(1000);
+		java.lang.Thread.sleep(200);
 	}
 
 	//ダメージ時
-	public void damage() throws Exception {
-		System.out.println("「デマッ！？」");
-		System.out.println("");
-		java.lang.Thread.sleep(1000);
-	}
+	//Allyクラスを継承
 
 	//勝利時
 	public void win() throws Exception {
 		System.out.println(this.name + "は勝利した。");
-		java.lang.Thread.sleep(1000);
+		java.lang.Thread.sleep(200);
 		System.out.println("「デマアアアアアアシアアアアアア！！！」");
 		System.out.println("");
-		java.lang.Thread.sleep(1000);
+		java.lang.Thread.sleep(200);
 
 		char[] victory = { 'V', 'I', 'C', 'T', 'O', 'R', 'Y' };
 
@@ -80,7 +62,7 @@ public class Garen extends Ally {
 		System.out.println(this.name + "は力尽きた。");
 		System.out.println("「デマ……シア……。」");
 		System.out.println("");
-		java.lang.Thread.sleep(1000);
+		java.lang.Thread.sleep(200);
 
 		char[] defeat = { 'D', 'E', 'F', 'E', 'A', 'T' };
 
