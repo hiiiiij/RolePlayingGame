@@ -20,6 +20,19 @@ public class Draven extends Ally {
 		java.lang.Thread.sleep(200);
 	}
 
+	//スキル
+	public void skill(Enemy target) throws Exception {
+		System.out.println(this.name + "の回転斬斧！");
+		System.out.println("「最高の仕事だぜ。」");
+		System.out.println("");
+		java.lang.Thread.sleep(200);
+		target.damage(this.atk);
+		System.out.println(this.name + "の攻撃力が上昇！");
+		System.out.println("");
+		java.lang.Thread.sleep(200);
+		this.atk += 20;
+	}
+
 	//逃走時
 	public void run() throws Exception {
 		System.out.println(this.name + "は無様に逃げ出した！");

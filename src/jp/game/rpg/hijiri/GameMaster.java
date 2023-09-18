@@ -26,16 +26,24 @@ public class GameMaster {
 
 		//キャラクター選択
 		int c = command(1, allyCharacters.length);
-
-		//アイテム配列
-		Item itemList[] = new Item[] {
+		//装備品配列
+		Equipment equipmentList[] = new Equipment[] {
 				new Ruby(),
 				new LongSword(),
 				new ClothArmor(),
 				new Omg()
 		};
+		//装備
+		equipItem(allyCharacters[c], equipmentList);
 
-		equip(allyCharacters[c], itemList);
+		//消耗品配列
+		Consumables consumablesList[] = new Consumables[] {
+				new Redpotion(),
+				new ElixirOfIron(),
+				new ThrowingKnife()
+		};
+		//所持
+		bringItem(allyCharacters[c], consumablesList);
 
 		//登場
 		allyCharacters[c].appear();
@@ -60,8 +68,8 @@ public class GameMaster {
 		do {
 			//コマンド選択
 			System.out.println("行動を数字で選択してください。");
-			System.out.println("1:通常攻撃 2:逃げる 3:体力確認");
-			int input = command(1, 3);
+			System.out.println("1:通常攻撃 2:スキル 3:アイテム 4:逃げる 5:体力確認");
+			int input = command(1, 5);
 
 			//コマンドによって行動を変化させる
 			switch (input) {
@@ -73,23 +81,31 @@ public class GameMaster {
 				attackFromEnemy(enemyCharacters, allyCharacters[c]);
 				break;
 
-			//1:逃げる
+			//1:スキル
 			case 1:
+				Enemy target = selectEnemy(enemyCharacters);
+
+				allyCharacters[c].skill(target);
+				break;
+
+			//2:アイテム
+			case 2:
+				//消耗品使用
+				useItem(allyCharacters[c], enemyCharacters);
+				break;
+
+			//3:逃げる
+			case 3:
 				//自分の逃走
 				allyCharacters[c].run();
 				//敵の攻撃
 				attackFromEnemy(enemyCharacters, allyCharacters[c]);
 				break;
 
-			//2:体力確認
-			case 2:
+			//4:体力確認
+			case 4:
 				//お互いの体力を表示する
-				System.out.println(allyCharacters[c].name + "の体力：" + allyCharacters[c].hp);
-				System.out.println("");
-				for (Enemy e : enemyCharacters) {
-					System.out.println(e.name + "の体力:" + +e.hp);
-					System.out.println("");
-				}
+				confirm_HP(allyCharacters[c], enemyCharacters);
 				break;
 			}
 
@@ -103,6 +119,18 @@ public class GameMaster {
 		}
 
 	}
+
+	//===============================================================//
+	//===============================================================//
+	//===============================================================//
+	//===============================================================//
+	//===============================================================//
+	//メソッド
+	//===============================================================//
+	//===============================================================//
+	//===============================================================//
+	//===============================================================//
+	//===============================================================//
 
 	//最低値(min)から最大値(max)までのコマンドを受け付けるメソッド
 	public static int command(int min, int max) {
@@ -118,35 +146,42 @@ public class GameMaster {
 		return n - 1;
 	}
 
-	//自分(agent)が敵(target)を攻撃するメソッド
-	public static void attackFromAlly(Ally agent, Enemy target[]) throws Exception {
+	//敵を表示し、対象を選択するメソッド
+	public static Enemy selectEnemy(Enemy enemyList[]) {
 		//敵を表示する
-		System.out.println("攻撃の対象を選択してください。");
-		for (Enemy e : target) {
+		System.out.println("対象を選択してください。");
+		for (Enemy e : enemyList) {
 			if (e.hp > 0) {
-				System.out.println(Arrays.asList(target).indexOf(e) + 1 + ":" + e.name);
+				System.out.println(Arrays.asList(enemyList).indexOf(e) + 1 + ":" + e.name);
 			}
 			if (e.hp == 0) {
-				System.out.println(Arrays.asList(target).indexOf(e) + 1 + ":" + e.name + "(死亡)");
+				System.out.println(Arrays.asList(enemyList).indexOf(e) + 1 + ":" + e.name + "(死亡)");
 			}
 		}
 
 		//対象を選択する
 		int t;
 		do {
-			t = command(1, target.length);
-			if (target[t].hp == 0) {
+			t = command(1, enemyList.length);
+			if (enemyList[t].hp == 0) {
 				System.out.println("有効な数字を選択してください。");
 			}
-		} while (target[t].hp == 0);
+		} while (enemyList[t].hp == 0);
+
+		return enemyList[t];
+	}
+
+	//自分(agent)が敵(target)を攻撃するメソッド
+	public static void attackFromAlly(Ally agent, Enemy target[]) throws Exception {
+		Enemy t = selectEnemy(target);
 
 		//自分の攻撃
-		agent.attack(target[t]);
-		target[t].damage(agent.atk);
+		agent.attack(t);
+		t.damage(agent.atk);
 
 		//倒したとき
-		if (target[t].hp == 0) {
-			System.out.println(target[t].name + "は倒れた！");
+		if (t.hp == 0) {
+			System.out.println(t.name + "は倒れた！");
 			System.out.println("");
 		}
 	}
@@ -164,6 +199,16 @@ public class GameMaster {
 		}
 		if (dmg > 0) {
 			System.out.println(target.name + "に合計" + dmg + "のダメージ！");
+			System.out.println("");
+		}
+	}
+
+	//自分と敵の体力を確認するメソッド
+	public static void confirm_HP(Ally ally, Enemy enemy[]) throws Exception {
+		System.out.println(ally.name + "の体力：" + ally.hp);
+		System.out.println("");
+		for (Enemy e : enemy) {
+			System.out.println(e.name + "の体力:" + +e.hp);
 			System.out.println("");
 		}
 	}
@@ -193,27 +238,69 @@ public class GameMaster {
 		return a;
 	}
 
-	//アイテム装備
-	public static void equip(Ally ally, Item itemList[]) throws Exception {
-		//アイテム表示
-		System.out.println("装備するアイテムを選択してください。");
-		for (Item i : itemList) {
-			System.out.print(Arrays.asList(itemList).indexOf(i) + 1 + ":" + i.name);
-			if (i.hp > 0) {
-				System.out.print(" 体力+" + i.hp);
+	//装備品装備
+	public static void equipItem(Ally ally, Equipment equipmentList[]) throws Exception {
+		//装備品表示
+		System.out.println("装備を選択してください。");
+		for (Equipment e : equipmentList) {
+			System.out.print(Arrays.asList(equipmentList).indexOf(e) + 1 + ":" + e.name);
+			if (e.hp > 0) {
+				System.out.print(" 体力+" + e.hp);
 			}
-			if (i.atk > 0) {
-				System.out.print(" 攻撃力+" + i.atk);
+			if (e.atk > 0) {
+				System.out.print(" 攻撃力+" + e.atk);
 			}
-			if (i.armor > 0) {
-				System.out.print(" 防御力+" + i.armor);
+			if (e.armor > 0) {
+				System.out.print(" 防御力+" + e.armor);
 			}
 			System.out.println("");
 		}
-
-		//アイテム装備
-		ally.equip(itemList[command(1, itemList.length)]);
-
+		//装備品装備
+		ally.equip(equipmentList[command(1, equipmentList.length)]);
 	}
 
+	//消耗品所持
+	public static void bringItem(Ally ally, Consumables consumablesList[]) throws Exception {
+		//消耗品表示
+		System.out.println("アイテムを選択してください。");
+		for (Consumables c : consumablesList) {
+			System.out.print(Arrays.asList(consumablesList).indexOf(c) + 1 + ":" + c.name);
+			System.out.println("");
+		}
+		//消耗品所持
+		ally.bring(consumablesList[command(1, consumablesList.length)]);
+	}
+
+	//消耗品使用
+	public static void useItem(Ally ally, Enemy enemy[]) throws Exception {
+		if (ally.consumables == null) {
+			System.out.println("アイテムを持っていない！");
+			System.out.println("");
+		} else {
+			System.out.println(ally.consumables.name + "を使用する対象を選択してください。");
+			//対象を選択する
+			System.out.println("1:" + ally.name + "(自分)");
+			for (Enemy e : enemy) {
+				if (e.hp > 0) {
+					System.out.println(Arrays.asList(enemy).indexOf(e) + 2 + ":" + e.name);
+				}
+				if (e.hp == 0) {
+					System.out.println(Arrays.asList(enemy).indexOf(e) + 2 + ":" + e.name + "(死亡)");
+				}
+			}
+
+			//対象に応じた処理
+			int t;
+			t = command(1, enemy.length + 1);
+			if (t == 0) {
+				ally.consumables.use(ally);
+			}
+			if (t > 0) {
+				ally.consumables.use(enemy[t - 1]);
+			}
+
+			ally.consumables = null;
+
+		}
+	}
 }

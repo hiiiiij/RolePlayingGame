@@ -1,13 +1,14 @@
 package jp.game.rpg.hijiri;
 
-public abstract class Ally {
+public abstract class Ally implements Character {
 
 	String name;
 	int MAX_HP;
 	int hp;
 	int atk;
 	int armor;
-	Item equipment;
+	Equipment equipment;
+	Consumables consumables;
 
 	//コンストラクタ
 	public Ally() {
@@ -15,20 +16,24 @@ public abstract class Ally {
 
 	//メソッド
 
-	//攻撃時
+	//攻撃
 	public void attack(Enemy target) throws Exception {
 	}
 
-	//逃走時
+	//スキル
+	public void skill(Enemy target) throws Exception {
+	}
+
+	//逃走
 	public void run() throws Exception {
 	}
 
-	//登場時
+	//登場
 	public void appear() throws Exception {
 
 	}
 
-	//ダメージ時
+	//ダメージ
 	public void damage(int atk) throws Exception {
 		int dmg = atk - this.armor;
 		if (dmg <= 0) {
@@ -44,10 +49,11 @@ public abstract class Ally {
 		}
 	}
 
-	public void equip(Item item) throws Exception {
+	//装備
+	public void equip(Equipment item) throws Exception {
 		System.out.println(this.name + "は" + item.name + "を装備した。");
-		this.equipment = item;
-		
+		equipment = item;
+
 		if (item.hp > 0) {
 			this.MAX_HP += item.hp;
 			this.hp += item.hp;
@@ -65,12 +71,19 @@ public abstract class Ally {
 		System.out.println("");
 	}
 
-	//勝利時
+	//消耗品
+	public void bring(Consumables item) throws Exception {
+		System.out.println(this.name + "は" + item.name + "を持った。");
+		consumables = item;
+		System.out.println("");
+	}
+
+	//勝利
 	public void win() throws Exception {
 
 	}
 
-	//敗北時
+	//敗北
 	public void dead() throws Exception {
 
 	}

@@ -1,6 +1,6 @@
 package jp.game.rpg.hijiri;
 
-public class Omg extends Item {
+public class Omg extends Equipment {
 	
 	//コンストラクタ
 	public Omg() {

@@ -1,6 +1,6 @@
 package jp.game.rpg.hijiri;
 
-public class Ruby extends Item {
+public class Ruby extends Equipment {
 	
 	//コンストラクタ
 	public Ruby() {

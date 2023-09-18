@@ -1,6 +1,6 @@
 package jp.game.rpg.hijiri;
 
-public class LongSword extends Item {
+public class LongSword extends Equipment {
 	
 	//コンストラクタ
 	public LongSword() {

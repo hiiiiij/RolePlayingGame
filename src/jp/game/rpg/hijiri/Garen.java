@@ -20,6 +20,14 @@ public class Garen extends Ally {
 		java.lang.Thread.sleep(200);
 	}
 
+	//スキル
+	public void skill(Enemy target) throws Exception {
+		System.out.println(this.name + "の断固たる一撃！");
+		System.out.println("「デマーシアアアア！！」");
+		java.lang.Thread.sleep(200);
+		target.damage(this.atk * 2);
+	}
+
 	//逃走時
 	public void run() throws Exception {
 		System.out.println(this.name + "は無様に逃げ出した！");

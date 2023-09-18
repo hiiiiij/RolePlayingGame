@@ -1,6 +1,6 @@
 package jp.game.rpg.hijiri;
 
-public abstract class Enemy {
+public abstract class Enemy implements Character {
 
 	String name;
 	int MAX_HP;
@@ -39,7 +39,10 @@ public abstract class Enemy {
 		this.hp -= dmg;
 		if (this.hp <= 0) {
 			this.hp = 0;
+			System.out.println(this.name + "は倒れた！");
+			System.out.println("");
 		}
+
 	}
 
 }

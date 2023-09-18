@@ -10,7 +10,7 @@ public class Braum extends Ally {
 		this.atk = 55;
 		this.armor = 47;
 	}
-	
+
 	//メソッド
 
 	//攻撃時
@@ -20,6 +20,17 @@ public class Braum extends Ally {
 		System.out.println("");
 		java.lang.Thread.sleep(200);
 	}
+
+	//スキル
+		public void skill(Enemy target) throws Exception {
+			System.out.println(this.name + "は冬の凍瘡を放った！");
+			System.out.println("「ガンガン行くぞ！」");
+			target.damage(this.atk);
+			System.out.println(target.name + "の防御力が下がった！");
+			System.out.println("");
+			java.lang.Thread.sleep(200);
+			target.armor -= 20;
+		}
 
 	//逃走時
 	public void run() throws Exception {
