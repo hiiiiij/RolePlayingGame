@@ -1,14 +1,14 @@
 package jp.game.rpg.hijiri;
 
-public class Braum extends Ally {
+public class Ezreal extends Ally {
 
 	//コンストラクタ
-	public Braum() {
-		this.name = "ブラウム";
-		this.MAX_HP = 610;
+	public Ezreal() {
+		this.name = "エズリアル";
+		this.MAX_HP = 600;
 		this.hp = MAX_HP;
-		this.atk = 55;
-		this.armor = 47;
+		this.atk = 62;
+		this.armor = 24;
 		this.selected = false;
 	}
 
@@ -17,21 +17,17 @@ public class Braum extends Ally {
 	//攻撃時
 	public void attack(Enemy target) throws Exception {
 		System.out.println(this.name + "の攻撃！");
-		System.out.println("「もう説教だけでは済まんぞ！」");
-		System.out.println("");
+		System.out.println("「ぶっ飛ばせガントレット！」");
 		java.lang.Thread.sleep(200);
 	}
 
 	//スキル
-		public void skill(Enemy target) throws Exception {
-			System.out.println(this.name + "は冬の凍瘡を放った！");
-			System.out.println("「ガンガン行くぞ！」");
-			target.damage(this.atk);
-			System.out.println(target.name + "の防御力が下がった！");
-			System.out.println("");
-			java.lang.Thread.sleep(200);
-			target.armor -= 20;
-		}
+	public void skill(Enemy target) throws Exception {
+		System.out.println(this.name + "トゥルーショットバラージ！");
+		System.out.println("「食らえ！」");
+		java.lang.Thread.sleep(200);
+		target.damage(this.atk * 2);
+	}
 
 	//逃走時
 	public void run() throws Exception {
@@ -44,9 +40,9 @@ public class Braum extends Ally {
 
 	//登場時
 	public void appear() throws Exception {
-		System.out.println("「心こそ、最強の筋肉よ！」");
-		java.lang.Thread.sleep(100);
-		System.out.println("「おや、お客さんかね？」");
+		System.out.println("「クエスト了解！…て、どこに行くって？」");
+		java.lang.Thread.sleep(200);
+		System.out.println("「博物館送りにしてやるぜ！」");
 		System.out.println("");
 		java.lang.Thread.sleep(200);
 		this.selected = true;
@@ -59,7 +55,7 @@ public class Braum extends Ally {
 	public void win() throws Exception {
 		System.out.println(this.name + "は勝利した。");
 		java.lang.Thread.sleep(200);
-		System.out.println("「ほら、あっという間だったろ？」");
+		System.out.println("「勝ったのは、エズリアルでーす！ フゥーイェーイ！」");
 		System.out.println("");
 		java.lang.Thread.sleep(200);
 
@@ -74,7 +70,7 @@ public class Braum extends Ally {
 	//敗北時
 	public void dead() throws Exception {
 		System.out.println(this.name + "は力尽きた。");
-		System.out.println("「グゥッ、ウオォ……。」");
+		System.out.println("「まだ……。」");
 		System.out.println("");
 		java.lang.Thread.sleep(200);
 

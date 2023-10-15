@@ -9,6 +9,7 @@ public class Garen extends Ally {
 		this.hp = MAX_HP;
 		this.atk = 69;
 		this.armor = 38;
+		this.selected = false;
 	}
 
 	//メソッド
@@ -44,6 +45,7 @@ public class Garen extends Ally {
 		System.out.println("「ム！メイジかッ！？」");
 		System.out.println("");
 		java.lang.Thread.sleep(200);
+		this.selected = true;
 	}
 
 	//ダメージ時

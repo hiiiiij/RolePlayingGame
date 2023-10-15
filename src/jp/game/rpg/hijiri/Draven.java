@@ -9,6 +9,7 @@ public class Draven extends Ally {
 		this.hp = MAX_HP;
 		this.atk = 62;
 		this.armor = 29;
+		this.selected = false;
 	}
 
 	//メソッド
@@ -23,7 +24,7 @@ public class Draven extends Ally {
 	//スキル
 	public void skill(Enemy target) throws Exception {
 		System.out.println(this.name + "の回転斬斧！");
-		System.out.println("「最高の仕事だぜ。」");
+		System.out.println("「最高の仕事だぜ」");
 		System.out.println("");
 		java.lang.Thread.sleep(200);
 		target.damage(this.atk);
@@ -49,6 +50,7 @@ public class Draven extends Ally {
 		System.out.println("「リーグオブドレイヴンへようこそ！」");
 		System.out.println("");
 		java.lang.Thread.sleep(200);
+		this.selected = true;
 	}
 
 	//ダメージ時

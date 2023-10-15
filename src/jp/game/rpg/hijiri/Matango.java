@@ -1,13 +1,13 @@
 package jp.game.rpg.hijiri;
 
 public class Matango extends Enemy {
-	
+
 	//コンストラクタ
 	public Matango() {
 		this.name = "マタンゴ";
 		this.MAX_HP = 100;
 		this.hp = MAX_HP;
-		this.atk = 80;
+		this.atk = 300;
 		this.armor = 10;
 	}
 

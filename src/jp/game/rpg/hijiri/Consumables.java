@@ -2,6 +2,7 @@ package jp.game.rpg.hijiri;
 
 public class Consumables {
 	String name;
+	int quantity;
 
 	//コンストラクタ
 
@@ -14,4 +15,5 @@ public class Consumables {
 
 	public void use(Enemy target) throws Exception {
 	};
+
 }

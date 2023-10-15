@@ -9,11 +9,9 @@ public abstract class Ally implements Character {
 	int armor;
 	Equipment equipment;
 	Consumables consumables;
+	Boolean selected;
 
-	//コンストラクタ
-	public Ally() {
-	}
-
+	
 	//メソッド
 
 	//攻撃
@@ -46,6 +44,8 @@ public abstract class Ally implements Character {
 		this.hp -= dmg;
 		if (this.hp <= 0) {
 			this.hp = 0;
+			System.out.println(this.name + "は倒れた！");
+			System.out.println("");
 		}
 	}
 

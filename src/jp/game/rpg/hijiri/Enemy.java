@@ -42,7 +42,6 @@ public abstract class Enemy implements Character {
 			System.out.println(this.name + "は倒れた！");
 			System.out.println("");
 		}
-
 	}
 
 }
